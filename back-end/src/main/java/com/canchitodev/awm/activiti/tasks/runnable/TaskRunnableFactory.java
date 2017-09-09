@@ -28,29 +28,28 @@
  **/
 package com.canchitodev.awm.activiti.tasks.runnable;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.canchitodev.awm.activiti.tasks.TaskRunnable;
-import com.canchitodev.awm.activiti.tasks.domain.GenericTaskEntity;
-import com.canchitodev.awm.utils.enums.BehaviorTaskType;
 
 @Service
 public class TaskRunnableFactory {
+	
+	private ApplicationContext applicationContext;
+	
+	public TaskRunnableFactory() {
+		applicationContext = new ClassPathXmlApplicationContext("task-runnable-beans.xml");
+	}
 
-	public TaskRunnable getRunnable(GenericTaskEntity task) {
-		if(task == null)
+	public TaskRunnable getRunnable(String beanId) {
+		if(beanId == null || beanId.isEmpty())
 			return null;
-		switch(BehaviorTaskType.get(task.getType())) {
-			case MOVE:
-				return new MoveTaskRunnable(task);
-			case COPY:
-				return new CopyTaskRunnable(task);
-			case TASK1:
-				return new Task1Runnable(task);
-			case TASK2:
-				return new Task2Runnable(task);
-			default:
-				return null;
-		}
+		
+		if(!this.applicationContext.containsBean(beanId))
+			return null;
+		
+		return (TaskRunnable) this.applicationContext.getBean(beanId);
 	}
 }

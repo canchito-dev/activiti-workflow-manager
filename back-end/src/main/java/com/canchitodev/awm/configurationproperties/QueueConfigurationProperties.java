@@ -59,7 +59,7 @@ public class QueueConfigurationProperties {
 		private long keepAliveTime;
 		
 		@NotEmpty
-		private String type;
+		private String beanId;
 
 		public String getPoolName() {
 			return poolName;
@@ -85,11 +85,11 @@ public class QueueConfigurationProperties {
 		public void setKeepAliveTime(long keepAliveTime) {
 			this.keepAliveTime = keepAliveTime;
 		}
-		public String getType() {
-			return type;
+		public String getBeanId() {
+			return beanId;
 		}
-		public void setType(String type) {
-			this.type = type.toUpperCase();
+		public void setBeanId(String beanId) {
+			this.beanId = beanId;
 		}
 		
 		@Override
@@ -98,7 +98,7 @@ public class QueueConfigurationProperties {
 					+ ", corePoolSize=" + corePoolSize 
 					+ ", maximumPoolSize=" + maximumPoolSize
 					+ ", keepAliveTime=" + keepAliveTime
-					+ ", type=" + type + "]";
+					+ ", beanId=" + beanId + "]";
 		}
 	}
 

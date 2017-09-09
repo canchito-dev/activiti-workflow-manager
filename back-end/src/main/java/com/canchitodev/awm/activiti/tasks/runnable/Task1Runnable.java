@@ -59,7 +59,7 @@ public class Task1Runnable implements TaskRunnable {
 	public void execute() {
 		try {
 			logger.info("Executing task " + task.toString());
-			TimeUnit.SECONDS.sleep(10);
+			TimeUnit.SECONDS.sleep(5);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

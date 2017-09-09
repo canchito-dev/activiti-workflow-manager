@@ -51,7 +51,6 @@ import com.canchitodev.awm.exception.GenericException;
 import com.canchitodev.awm.exception.ObjectNotFoundException;
 import com.canchitodev.awm.utils.StrongUuidGenerator;
 import com.canchitodev.awm.utils.enums.BehaviorTaskStatus;
-import com.canchitodev.awm.utils.enums.BehaviorTaskType;
 
 /**
  * <p>The TaskQueueService is in charge of managing the different queues for executing TaskRunnable(s).
@@ -113,8 +112,13 @@ public class TasksQueueService {
 	private void loadQueue() {
 		// Create the queues
 		for (Queue queue : this.queues) {
+			logger.info("Starting executor for '" + queue.getBeanId() 
+				+ "' [pool-name: '" + queue.getPoolName() + "']"
+				+ "' [core-pool-size: '" + queue.getCorePoolSize() + "']"
+				+ "' [maximum-pool-size: '" + queue.getMaximumPoolSize() + "']"
+				+ "' [keep-alive-time: '" + queue.getKeepAliveTime() + "']");
 			this.executors.put(
-					BehaviorTaskType.valueOf(queue.getType()).toString(),
+					queue.getBeanId(),
 					ExecutorServiceUtils.createDefaultExecutorService(
 							queue.getPoolName(), 
 							queue.getCorePoolSize(), 
@@ -141,11 +145,9 @@ public class TasksQueueService {
 	 **/
 	@PreDestroy
 	public void cleanUp() {
-		for (BehaviorTaskType behaviorTaskType : BehaviorTaskType.values()) {
-			if(!behaviorTaskType.equals(BehaviorTaskType.undefined)) {
-				logger.info("Shutting down executor for " + behaviorTaskType.toString());
-				this.executors.get(behaviorTaskType.toString()).shutdown();	
-			}
+		for (Queue queue : this.queues) {
+			logger.info("Shutting down executor for '" + queue.getBeanId() + "'");
+			this.executors.get(queue.getBeanId()).shutdown();
 		}		
 	}
 	
@@ -161,7 +163,7 @@ public class TasksQueueService {
 		GenericTaskRunnable runnable = this.applicationContext.getBean(GenericTaskRunnable.class);
 		runnable.setTask(task);
 		logger.info("Submitting task " + task.toString());
-		this.executors.get(BehaviorTaskType.get(task.getType()).toString()).execute(runnable);
+		this.executors.get(task.getBeanId()).execute(runnable);
 	}
 	
 	/**
@@ -190,7 +192,7 @@ public class TasksQueueService {
 		synchronized (lock) {
 			GenericTaskRunnable runnable = this.applicationContext.getBean(GenericTaskRunnable.class);
 			runnable.setTask(task);
-			if(this.executors.get(BehaviorTaskType.get(task.getType()).toString()).remove(runnable)) {
+			if(this.executors.get(task.getBeanId()).remove(runnable)) {
 				this.genericTaskService.delete(task);
 				logger.info("Delete task " + task.toString());
 			} else {
@@ -224,7 +226,7 @@ public class TasksQueueService {
 			GenericTaskRunnable runnable = this.applicationContext.getBean(GenericTaskRunnable.class);
 			runnable.setTask(task);
 			
-			PriorityBlockingQueue<Runnable> workQueue = (PriorityBlockingQueue<Runnable>) this.executors.get(BehaviorTaskType.get(task.getType())).getQueue();
+			PriorityBlockingQueue<Runnable> workQueue = (PriorityBlockingQueue<Runnable>) this.executors.get(task.getBeanId()).getQueue();
 			
 			if(workQueue.contains(runnable)) {
 				workQueue.remove(runnable);

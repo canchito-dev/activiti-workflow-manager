@@ -36,10 +36,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.canchitodev.awm.activiti.tasks.domain.GenericTaskEntity;
 import com.canchitodev.awm.domain.FileHandler;
 import com.canchitodev.awm.service.FolderHandlerService;
-import com.canchitodev.awm.utils.enums.BehaviorTaskType;
 
 @Service("moveTaskBehavior")
 @Scope("prototype")
@@ -78,11 +76,11 @@ public class MoveTaskBehavior extends AbstractTaskActivityBehavior {
 			this.submitTask(
 					execution, 
 					this.setDetails(sfh.getName(), dfh.getName()), 
-					BehaviorTaskType.MOVE
+					"moveTaskRunnable"
 			);
 		} catch (Exception e) {
 			this.throwException(execution, 
-					"There was a problem when trying to execute task '" + BehaviorTaskType.MOVE.toString() + "' "
+					"There was a problem when trying to execute task 'moveTaskRunnable'"
 			);
 		}
 	}

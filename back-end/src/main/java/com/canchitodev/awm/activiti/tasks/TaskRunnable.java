@@ -28,7 +28,9 @@
  **/
 package com.canchitodev.awm.activiti.tasks;
 
+import com.canchitodev.awm.activiti.tasks.domain.GenericTaskEntity;
 
 public interface TaskRunnable {
 	void execute();
+	void setTask(GenericTaskEntity task);
 }

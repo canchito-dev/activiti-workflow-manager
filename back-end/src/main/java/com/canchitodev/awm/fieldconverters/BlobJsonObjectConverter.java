@@ -21,39 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  * 
- * @author 		JosÃ© Carlos Mendoza Prego
+ * @author 		José Carlos Mendoza Prego
  * @copyright	Copyright (c) 2017, canchito-dev (http://www.canchito-dev.com)
  * @license		http://opensource.org/licenses/MIT	MIT License
  * @link		https://github.com/canchito-dev/activiti-workflow-manager
  **/
-package com.canchitodev.awm.activiti.tasks.behavior;
+package com.canchitodev.awm.fieldconverters;
 
-import org.activiti.engine.delegate.DelegateExecution;
+import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
+
+import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
 
-
-@Service("task2")
-@Scope("prototype")
-public class Task2Behavior extends AbstractTaskActivityBehavior {
-
-	private static final long serialVersionUID = -4740654158860004620L;
+@Converter
+public class BlobJsonObjectConverter implements AttributeConverter<JSONObject, byte[]> {
 
 	@Override
-	public void execute(DelegateExecution execution) {
-		try {
-			this.submitTask(execution, new JSONObject(), "task2Runnable");
-		} catch (Exception e) {
-			this.throwException(execution, 
-					"There was a problem when trying to execute task 'task2Runnable'"
-			);
-		}
+	public byte[] convertToDatabaseColumn(JSONObject dbData) {
+		return dbData == null ? null : dbData.toString().getBytes();
 	}
 
 	@Override
-	protected void validateParameters(DelegateExecution execution) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		
+	public JSONObject convertToEntityAttribute(byte[] attribute) {
+		if(attribute != null) {
+			try {
+				return new JSONObject(new String(attribute));
+			} catch (JSONException e) {}
+		}
+		return null;
 	}
 }

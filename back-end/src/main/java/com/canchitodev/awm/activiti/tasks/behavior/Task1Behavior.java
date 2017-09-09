@@ -33,7 +33,6 @@ import org.json.JSONObject;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.canchitodev.awm.utils.enums.BehaviorTaskType;
 
 @Service("task1")
 @Scope("prototype")
@@ -44,10 +43,10 @@ public class Task1Behavior extends AbstractTaskActivityBehavior {
 	@Override
 	public void execute(DelegateExecution execution) {
 		try {			
-			this.submitTask(execution, new JSONObject(), BehaviorTaskType.TASK1);
+			this.submitTask(execution, new JSONObject(), "task1Runnable");
 		} catch (Exception e) {
 			this.throwException(execution, 
-					"There was a problem when trying to execute task '" + BehaviorTaskType.TASK1.toString() + "' "
+					"There was a problem when trying to execute task 'task1Runnable'"
 			);
 		}
 	}

@@ -70,8 +70,8 @@ public class GenericTaskEntity implements Serializable {
 	@Column(name = "DETAILS_", nullable = false)
 	private JSONObject details;
 	
-	@Column(name = "TYPE_", nullable = false)
-	private Integer type;
+	@Column(name = "BEAN_ID_", nullable = false, length = 64)
+	private String beanId;
 	
 	@Column(name = "STATUS_", nullable = false)
 	private Integer status;
@@ -80,16 +80,16 @@ public class GenericTaskEntity implements Serializable {
 	private Long tenantId;
 	
 	public GenericTaskEntity() {}
-	
-	public GenericTaskEntity(String uuid, String processDefinitionId, String processInstanceId,
-			String executionId, Integer priority, JSONObject details, Integer type, Integer status, Long tenantId) {
+
+	public GenericTaskEntity(String uuid, String processDefinitionId, String processInstanceId, String executionId,
+			Integer priority, JSONObject details, String beanId, Integer status, Long tenantId) {
 		this.uuid = uuid;
 		this.processDefinitionId = processDefinitionId;
 		this.processInstanceId = processInstanceId;
 		this.executionId = executionId;
 		this.priority = priority;
 		this.details = details;
-		this.type = type;
+		this.beanId = beanId;
 		this.status = status;
 		this.tenantId = tenantId;
 	}
@@ -142,12 +142,12 @@ public class GenericTaskEntity implements Serializable {
 		this.details = details;
 	}
 
-	public Integer getType() {
-		return type;
+	public String getBeanId() {
+		return beanId;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
+	public void setBeanId(String beanId) {
+		this.beanId = beanId;
 	}
 
 	public Integer getStatus() {
@@ -170,13 +170,13 @@ public class GenericTaskEntity implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((beanId == null) ? 0 : beanId.hashCode());
 		result = prime * result + ((executionId == null) ? 0 : executionId.hashCode());
 		result = prime * result + ((priority == null) ? 0 : priority.hashCode());
 		result = prime * result + ((processDefinitionId == null) ? 0 : processDefinitionId.hashCode());
 		result = prime * result + ((processInstanceId == null) ? 0 : processInstanceId.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((tenantId == null) ? 0 : tenantId.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
 		return result;
 	}
@@ -190,6 +190,11 @@ public class GenericTaskEntity implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		GenericTaskEntity other = (GenericTaskEntity) obj;
+		if (beanId == null) {
+			if (other.beanId != null)
+				return false;
+		} else if (!beanId.equals(other.beanId))
+			return false;
 		if (executionId == null) {
 			if (other.executionId != null)
 				return false;
@@ -220,11 +225,6 @@ public class GenericTaskEntity implements Serializable {
 				return false;
 		} else if (!tenantId.equals(other.tenantId))
 			return false;
-		if (type == null) {
-			if (other.type != null)
-				return false;
-		} else if (!type.equals(other.type))
-			return false;
 		if (uuid == null) {
 			if (other.uuid != null)
 				return false;
@@ -237,6 +237,6 @@ public class GenericTaskEntity implements Serializable {
 	public String toString() {
 		return "GenericTaskEntity [uuid=" + uuid + ", processDefinitionId=" + processDefinitionId
 				+ ", processInstanceId=" + processInstanceId + ", executionId=" + executionId + ", priority=" + priority
-				+ ", details=" + details + ", type=" + type + ", status=" + status + ", tenantId=" + tenantId + "]";
+				+ ", details=" + details + ", beanId=" + beanId + ", status=" + status + ", tenantId=" + tenantId + "]";
 	}
 }

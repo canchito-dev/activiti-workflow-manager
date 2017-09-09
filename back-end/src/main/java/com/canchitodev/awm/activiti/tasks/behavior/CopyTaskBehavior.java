@@ -38,7 +38,6 @@ import org.springframework.stereotype.Service;
 
 import com.canchitodev.awm.domain.FileHandler;
 import com.canchitodev.awm.service.FolderHandlerService;
-import com.canchitodev.awm.utils.enums.BehaviorTaskType;
 
 @Service("copyTaskBehavior")
 @Scope("prototype")
@@ -77,11 +76,11 @@ public class CopyTaskBehavior extends AbstractTaskActivityBehavior {
 			this.submitTask(
 					execution, 
 					this.setDetails(sfh.getName(), dfh.getName()), 
-					BehaviorTaskType.COPY
+					"copyTaskRunnable"
 			);
 		} catch (Exception e) {
 			this.throwException(execution, 
-					"There was a problem when trying to execute task '" + BehaviorTaskType.COPY.toString() + "' "
+					"There was a problem when trying to execute task 'copyTaskRunnable'"
 			);
 		}
 	}

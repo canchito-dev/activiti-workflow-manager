@@ -41,7 +41,6 @@ import com.canchitodev.awm.activiti.tasks.domain.GenericTaskEntity;
 import com.canchitodev.awm.activiti.tasks.service.GenericTaskService;
 import com.canchitodev.awm.activiti.tasks.service.TasksQueueService;
 import com.canchitodev.awm.utils.enums.BehaviorTaskStatus;
-import com.canchitodev.awm.utils.enums.BehaviorTaskType;
 
 public abstract class AbstractTaskActivityBehavior extends TaskActivityBehavior {
 
@@ -66,11 +65,11 @@ public abstract class AbstractTaskActivityBehavior extends TaskActivityBehavior 
 	
 	/**
 	 * Submits a task to its respective queue for its execution
-	 * @param execution 	- Execution used in JavaDelegates and ExecutionListeners.
-	 * @param details 		- The detail information needed for execution the task 
-	 * @param typeOfTask	- The type of task it is
+	 * @param execution	- Execution used in JavaDelegates and ExecutionListeners.
+	 * @param details 	- The detail information needed for execution the task 
+	 * @param beanId	- The id of the bean which will be used for executing the task
 	 **/
-	protected void submitTask(DelegateExecution execution, JSONObject details, BehaviorTaskType typeOfTask) {
+	protected void submitTask(DelegateExecution execution, JSONObject details, String beanId) {
 		// Create generic task entity that will be used in the runnable
 		GenericTaskEntity task = new GenericTaskEntity();
 		task.setDetails(details);
@@ -79,7 +78,7 @@ public abstract class AbstractTaskActivityBehavior extends TaskActivityBehavior 
 		task.setProcessDefinitionId(execution.getProcessDefinitionId());
 		task.setProcessInstanceId(execution.getProcessInstanceId());
 		task.setTenantId(Long.parseLong(execution.getTenantId()));
-		task.setType(typeOfTask.getType());
+		task.setBeanId(beanId);
 		this.tasksQueueService.submit(task);
 	}
 	

@@ -47,10 +47,12 @@ public class GenericTaskRunnable implements Comparable<Runnable>, Runnable {
 
 	@Override
 	public void run() {
-		TaskRunnable taskRunnable = this.taskRunnableFactory.getRunnable(task);
+		TaskRunnable taskRunnable = this.taskRunnableFactory.getRunnable(task.getBeanId());
 		
 		if(taskRunnable == null)
 			throw new GenericException("No valid runnable found. Task: " + task.toString());
+		
+		taskRunnable.setTask(task);
 		
 		taskRunnable.execute();
 	}
