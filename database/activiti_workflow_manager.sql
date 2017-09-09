@@ -38,7 +38,7 @@ CREATE TABLE `act_evt_log` (
   `LOCK_TIME_` timestamp(3) NULL DEFAULT NULL,
   `IS_PROCESSED_` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`LOG_NR_`)
-) ENGINE=InnoDB AUTO_INCREMENT=1028 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=1596 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -825,7 +825,7 @@ CREATE TABLE `awm_tasks_queue` (
   `EXECUTION_ID_` varchar(64) NOT NULL,
   `PRIORITY_` int(11) NOT NULL,
   `DETAILS_` longblob NOT NULL,
-  `TYPE_` tinyint(4) NOT NULL,
+  `BEAN_ID_` varchar(64) NOT NULL,
   `STATUS_` tinyint(4) NOT NULL,
   `TENANT_ID_` int(11) DEFAULT NULL,
   `CREATED_TIMESTAMP` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -850,4 +850,4 @@ CREATE TABLE `awm_tasks_queue` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-02 16:45:36
+-- Dump completed on 2017-09-09 11:45:40
