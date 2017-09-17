@@ -49,6 +49,12 @@ public class GenericTaskRunnable implements Comparable<Runnable>, Runnable {
 	public void run() {
 		TaskRunnable taskRunnable = this.taskRunnableFactory.getRunnable(task.getBeanId());
 		
+		/**
+		 * TODO: If the exception is just thrown, Activiti execution of the process instance is not stopped. Neither the registry in the queue's database table.
+		 * So, there are two options that can be followed:
+		 * 1 - Remove the registry from the queue's table and propagate the exception to Activiti, so that the process instance is stopped and finishes in error; or
+		 * 2 - Move the queue registry to another table, include the exception, and let a system administrator decide how to proceed 
+		 **/
 		if(taskRunnable == null)
 			throw new GenericException("No valid runnable found. Task: " + task.toString());
 		

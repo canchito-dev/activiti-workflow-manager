@@ -37,7 +37,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 
 @Entity
-@Table(name = "awm_folder_handler")
+@Table(name = "cwm_folder_handler")
 public class FolderHandler implements Serializable {
 
 	private static final long serialVersionUID = -112223823739969480L;

@@ -43,7 +43,7 @@ import org.json.JSONObject;
 import com.canchitodev.awm.fieldconverters.BlobJsonObjectConverter;
 
 @Entity
-@Table(name = "awm_tasks_queue")
+@Table(name = "cwm_tasks_queue")
 public class GenericTaskEntity implements Serializable {
 
 	private static final long serialVersionUID = -4984499270335602207L;

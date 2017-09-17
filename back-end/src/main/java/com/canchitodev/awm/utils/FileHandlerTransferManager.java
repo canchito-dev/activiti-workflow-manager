@@ -39,6 +39,7 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import com.amazonaws.services.s3.AmazonS3;
@@ -46,7 +47,7 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.canchitodev.awm.amazon.s3.AwsClientBuilder;
 import com.canchitodev.awm.amazon.s3.AwsS3BasicManager;
 import com.canchitodev.awm.amazon.s3.AwsS3TransferManager;
-import com.canchitodev.awm.configurationproperties.AmazonProperties;
+import com.canchitodev.awm.configuration.properties.AmazonProperties;
 import com.canchitodev.awm.domain.FileHandler;
 import com.canchitodev.awm.exception.SmbTransferException;
 import com.canchitodev.awm.exception.TransferException;
@@ -55,6 +56,7 @@ import jcifs.smb.SmbException;
 import jcifs.smb.SmbFile;
 
 @Component
+@EnableConfigurationProperties(AmazonProperties.class)
 public final class FileHandlerTransferManager {
 	
 	private static final Logger logger = Logger.getLogger(FileHandlerTransferManager.class);
