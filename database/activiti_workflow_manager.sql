@@ -38,7 +38,7 @@ CREATE TABLE `act_evt_log` (
   `LOCK_TIME_` timestamp(3) NULL DEFAULT NULL,
   `IS_PROCESSED_` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`LOG_NR_`)
-) ENGINE=InnoDB AUTO_INCREMENT=1596 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=1748 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -786,13 +786,13 @@ CREATE TABLE `act_ru_variable` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `awm_folder_handler`
+-- Table structure for table `cwm_folder_handler`
 --
 
-DROP TABLE IF EXISTS `awm_folder_handler`;
+DROP TABLE IF EXISTS `cwm_folder_handler`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `awm_folder_handler` (
+CREATE TABLE `cwm_folder_handler` (
   `FOLDER_HANDLER_ID_` bigint(20) NOT NULL AUTO_INCREMENT,
   `NAME_` varchar(60) NOT NULL,
   `DESCRIPTION_` varchar(255) DEFAULT NULL,
@@ -804,7 +804,7 @@ CREATE TABLE `awm_folder_handler` (
   `TRANSFER_MODE_` tinyint(1) DEFAULT '1',
   `USERNAME_` varchar(65) DEFAULT NULL,
   `PASSWORD_` varchar(65) DEFAULT NULL,
-  `TENANT_ID_` bigint(20) NOT NULL,
+  `TENANT_ID_` bigint(20) DEFAULT NULL,
   `CREATED_TIMESTAMP_` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`FOLDER_HANDLER_ID_`),
   UNIQUE KEY `UQ_FH_BY_TENANT` (`NAME_`,`TENANT_ID_`)
@@ -812,13 +812,13 @@ CREATE TABLE `awm_folder_handler` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `awm_tasks_queue`
+-- Table structure for table `cwm_tasks_queue`
 --
 
-DROP TABLE IF EXISTS `awm_tasks_queue`;
+DROP TABLE IF EXISTS `cwm_tasks_queue`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `awm_tasks_queue` (
+CREATE TABLE `cwm_tasks_queue` (
   `UUID_` varchar(255) NOT NULL,
   `PROCESS_INSTANCE_ID_` varchar(64) NOT NULL,
   `PROCESS_DEFINITION_ID_` varchar(64) NOT NULL,
@@ -850,4 +850,4 @@ CREATE TABLE `awm_tasks_queue` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-09 11:45:40
+-- Dump completed on 2017-09-17 13:09:29
