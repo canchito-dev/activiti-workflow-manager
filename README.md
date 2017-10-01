@@ -1,5 +1,5 @@
 # activiti-workflow-manager (AWM)
-> Please note that this project is a work in progress.
+> Because Alfresco has not done any significant improvements on Activiti, and also because the core developers have forked it, I have also decided to stop working on this project and created a new one using the forked version of Activiti called Flowable. Please hava a look a the new repository [canchito-workflow-manager](https://github.com/canchito-dev/canchito-workflow-manager).
 
 **ACTIVITI-WORKFLOW-MANAGER (AWM)** is a powerfull and yet light-weight and easy to use solution for handling workflows and business processes. At its core is a high performance open-source business process engine based on [Activiti](https://www.activiti.org/) with the flexibility and scalability to handle a wide variety of critical processes.  
 
